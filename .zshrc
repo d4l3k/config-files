@@ -70,3 +70,4 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:$HOME/.c
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:$HOME/bin # Add conscript
+PATH=$PATH:$HOME/.local/bin # Add conscript

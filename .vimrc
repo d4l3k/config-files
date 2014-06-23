@@ -22,8 +22,8 @@ set expandtab
 set smarttab
 
 " Who wants an 8 character tab?  Not me!
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 
 " Use english for spellchecking,
 if version >= 700
@@ -69,9 +69,9 @@ set directory=~/.vim/tmp
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
-set colorcolumn=80
+set colorcolumn=90
 
 " Set Scala to be two space indent
-autocmd FileType scala setlocal shiftwidth=2 tabstop=2
+" autocmd FileType scala setlocal shiftwidth=2 tabstop=2
 au BufRead,BufNewFile *.ssp set filetype=html
 au BufRead,BufNewFile *.jade set filetype=haml
