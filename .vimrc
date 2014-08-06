@@ -109,6 +109,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/vimshell'
+NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'wikitopian/hardmode'
 
