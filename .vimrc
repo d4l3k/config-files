@@ -2,8 +2,6 @@ syntax on
 set number
 set autoindent
 
-colorscheme industry
-
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -69,9 +67,75 @@ set directory=~/.vim/tmp
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
-set colorcolumn=90
+set colorcolumn=80
 
 " Set Scala to be two space indent
 " autocmd FileType scala setlocal shiftwidth=2 tabstop=2
 au BufRead,BufNewFile *.ssp set filetype=html
 au BufRead,BufNewFile *.jade set filetype=haml
+
+
+set relativenumber
+
+noremap!  <Up>     <NOP>
+noremap!  <Down>   <NOP>
+noremap!  <Left>   <NOP>
+noremap!  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
+"NeoBundle Scripts-----------------------------
+if has('vim_starting')
+  set nocompatible               " Be iMproved
+
+  " Required:
+  set runtimepath+=/home/rice/.vim/bundle/neobundle.vim/
+endif
+
+" Required:
+call neobundle#begin(expand('/home/rice/.vim/bundle'))
+
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" My Bundles here:
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'wikitopian/hardmode'
+
+" Required:
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+"End NeoBundle Scripts-------------------------
+
+
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_javascript_checkers = ['gjslint']
+let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
+
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so ~/.vimrc
+augroup END
+
+if has('gui_running')
+  colorscheme industry
+endif
+if has("gui_macvim")
+  set transparency=15
+endif
