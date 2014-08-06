@@ -1,3 +1,5 @@
+" Tristan Rice's (rice@fn.lc) vimrc file
+
 syntax on
 set number
 set autoindent
@@ -91,11 +93,11 @@ if has('vim_starting')
   set nocompatible               " Be iMproved
 
   " Required:
-  set runtimepath+=/home/rice/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('/home/rice/.vim/bundle'))
+call neobundle#begin(expand('~/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
