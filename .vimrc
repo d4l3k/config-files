@@ -128,7 +128,7 @@ NeoBundleCheck
 
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['gjslint']
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
 
 augroup myvimrc
