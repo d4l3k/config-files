@@ -114,6 +114,8 @@ NeoBundle 'Shougo/vimshell'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'wikitopian/hardmode'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'tpope/vim-unimpaired'
 
 " Required:
 call neobundle#end()
@@ -128,8 +130,13 @@ NeoBundleCheck
 
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jsl', 'jslint']
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
+let g:syntastic_always_populate_loc_list = 1
+
+nmap <space> zz
+
+au BufNewFile,BufRead *.ejs set filetype=html
 
 augroup myvimrc
     au!
