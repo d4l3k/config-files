@@ -24,6 +24,7 @@ set smarttab
 " Who wants an 8 character tab?  Not me!
 set shiftwidth=2
 set softtabstop=2
+set tabstop=2
 
 " Use english for spellchecking,
 if version >= 700
@@ -130,7 +131,8 @@ NeoBundleCheck
 
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['jsl', 'jslint']
+let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_go_checkers = ['go', 'govet']
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
 let g:syntastic_always_populate_loc_list = 1
 
