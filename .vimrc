@@ -117,6 +117,11 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'wikitopian/hardmode'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'xolox/vim-easytags'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'Lokaltog/vim-easymotion'
 
 " Required:
 call neobundle#end()
@@ -132,9 +137,14 @@ NeoBundleCheck
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['jslint']
-let g:syntastic_go_checkers = ['go', 'govet']
+let g:syntastic_go_checkers = ['go', 'govet', 'golint']
+let g:syntastic_go_golint_args='-min_confidence=0.3'
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
 let g:syntastic_always_populate_loc_list = 1
+
+let g:go_fmt_command = "goimports"
+
+nmap <F8> :TagbarToggle<CR>
 
 nmap <space> zz
 
@@ -151,3 +161,10 @@ endif
 if has("gui_macvim")
   set transparency=15
 endif
+
+set enc=utf-8
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf8,prc
+
+set clipboard=unnamedplus
+
