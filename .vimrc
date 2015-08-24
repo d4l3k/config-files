@@ -72,6 +72,9 @@ inoremap <Up> <C-o>gk
 
 set colorcolumn=80
 
+filetype plugin on
+set omnifunc=syntaxcomplete#Complete
+
 " Set Scala to be two space indent
 " autocmd FileType scala setlocal shiftwidth=2 tabstop=2
 au BufRead,BufNewFile *.ssp set filetype=html
@@ -110,7 +113,7 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'ervandew/supertab'
+"NeoBundle 'ervandew/supertab'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
@@ -122,6 +125,9 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'xolox/vim-easytags'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
+NeoBundle 'Valloric/YouCompleteMe'
+
 
 " Required:
 call neobundle#end()
@@ -138,7 +144,7 @@ NeoBundleCheck
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['jslint']
 let g:syntastic_go_checkers = ['go', 'govet', 'golint']
-let g:syntastic_go_golint_args='-min_confidence=0.3'
+let g:syntastic_go_golint_args='-min_confidence=0.3 -shadow_ignore="err"'
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
 let g:syntastic_always_populate_loc_list = 1
 
@@ -168,3 +174,12 @@ set fileencodings=ucs-bom,utf8,prc
 
 set clipboard=unnamedplus
 
+set completeopt=longest,menuone
+
+au FileType go nmap <leader>bb :GoBuild<cr>
+au FileType go nmap <leader>bt :GoTest<cr>
+au FileType go nmap <leader>br :GoRun<cr>
+au FileType go nmap <leader>bi :GoInstall<cr>
+au FileType go nmap <leader>bc :GoCoverage<cr>
+
+nmap <leader>sc :s#_*\(\u\)\(\u*\)#\1\L\2#g<cr>
