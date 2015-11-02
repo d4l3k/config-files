@@ -21,10 +21,6 @@ set showcmd
 set expandtab
 set smarttab
 
-" Who wants an 8 character tab?  Not me!
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
 
 " Use english for spellchecking,
 if version >= 700
@@ -161,9 +157,9 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so ~/.vimrc
 augroup END
 
-if has('gui_running')
-  colorscheme industry
-endif
+colorscheme industry
+set background=dark
+
 if has("gui_macvim")
   set transparency=15
 endif
@@ -172,7 +168,11 @@ set enc=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf8,prc
 
-set clipboard=unnamedplus
+if !has('nvim')
+    set clipboard=unnamedplus
+endif
+
+set ttimeoutlen=0
 
 set completeopt=longest,menuone
 
@@ -183,3 +183,21 @@ au FileType go nmap <leader>bi :GoInstall<cr>
 au FileType go nmap <leader>bc :GoCoverage<cr>
 
 nmap <leader>sc :s#_*\(\u\)\(\u*\)#\1\L\2#g<cr>
+
+" The Silver Searcher
+ if executable('ag')
+"   " Use ag over grep
+     set grepprg=ag\ --nogroup\ --nocolor
+"
+"       " Use ag in CtrlP for listing files. Lightning fast and respects
+"       .gitignore
+       let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+" ag is fast enough that CtrlP doesn't need to cache
+"   let g:ctrlp_use_caching = 0
+ endif
+
+" Who wants an 8 character tab?  Not me!
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
