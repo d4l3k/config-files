@@ -8,7 +8,11 @@ set autoindent
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
-:set guioptions-=T  "remove toolbar
+set guioptions-=T  "remove toolbar
+set guioptions-=L "remove scrollbars
+set guioptions-=r "remove scrollbars
+
+set guifont=DejaVu\ Sans\ Mono\ 10
 
 
 " Necesary  for lots of cool vim things
@@ -123,6 +127,8 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
 NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'altercation/vim-colors-solarized'
 
 
 " Required:
@@ -142,6 +148,7 @@ let g:syntastic_javascript_checkers = ['jslint']
 let g:syntastic_go_checkers = ['go', 'govet', 'golint']
 let g:syntastic_go_golint_args='-min_confidence=0.3 -shadow_ignore="err"'
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
+let g:syntastic_typescript_tsc_post_args='--experimentalDecorators'
 let g:syntastic_always_populate_loc_list = 1
 
 let g:go_fmt_command = "goimports"
@@ -157,8 +164,8 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so ~/.vimrc
 augroup END
 
-colorscheme industry
 set background=dark
+colorscheme solarized
 
 if has("gui_macvim")
   set transparency=15
