@@ -7,7 +7,6 @@ set autoindent
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
 :set guioptions-=T  "remove toolbar
 
 
@@ -123,6 +122,7 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
 NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'tpope/vim-sleuth'
 
 
 " Required:
@@ -138,7 +138,7 @@ NeoBundleCheck
 
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_go_checkers = ['go', 'govet', 'golint']
 let g:syntastic_go_golint_args='-min_confidence=0.3 -shadow_ignore="err"'
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'

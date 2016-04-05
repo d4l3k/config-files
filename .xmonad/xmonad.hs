@@ -18,7 +18,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch gmrun
-    , ((modMask,               xK_p     ), spawn "exe=`yeganesh -x -- -fn '-*-dejavu sans mono-medium-*-*-*-14-*-*-*-*-*-*-*'` && eval \"exec $exe\"")
+    , ((modMask,               xK_p     ), spawn "exe=`yegonesh` && eval \"exec $exe\"")
 
     -- close focused window
     , ((modMask .|. shiftMask, xK_c     ), kill)
