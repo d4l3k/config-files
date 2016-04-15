@@ -129,6 +129,7 @@ NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'unblevable/quick-scope'
 
 
 " Required:
@@ -174,6 +175,18 @@ endif
 set enc=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf8,prc
+set breakindent
+
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
 if !has('nvim')
     set clipboard=unnamedplus
