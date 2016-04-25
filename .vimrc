@@ -84,6 +84,9 @@ au BufRead,BufNewFile *.jade set filetype=haml
 " Use powerline fonts
 let g:airline_powerline_fonts = 1
 
+" Updated tags in background
+let g:easytags_async = 1
+
 set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim/
 
 " Required:
