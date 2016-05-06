@@ -129,6 +129,7 @@ NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
 NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'leafgarland/typescript-vim'
 NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'tikhomirov/vim-glsl'
 
 
 " Required:
