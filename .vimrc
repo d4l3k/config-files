@@ -3,16 +3,17 @@
 syntax on
 set number
 set autoindent
+set relativenumber
 
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
 set guioptions-=T  "remove toolbar
 set guioptions-=L "remove scrollbars
 set guioptions-=r "remove scrollbars
+set laststatus=2
 
-set guifont=DejaVu\ Sans\ Mono\ 10
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
 
 
 " Necesary  for lots of cool vim things
@@ -80,72 +81,67 @@ set omnifunc=syntaxcomplete#Complete
 au BufRead,BufNewFile *.ssp set filetype=html
 au BufRead,BufNewFile *.jade set filetype=haml
 
+" Use powerline fonts
+let g:airline_powerline_fonts = 1
 
-set relativenumber
+" Updated tags in background
+let g:easytags_async = 1
 
-noremap!  <Up>     <NOP>
-noremap!  <Down>   <NOP>
-noremap!  <Left>   <NOP>
-noremap!  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
-
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  set nocompatible               " Be iMproved
-
-  " Required:
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+set runtimepath+=~/.vim/repos/github.com/Shougo/dein.vim/
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle'))
+call dein#begin(expand('~/.vim/bundle'))
 
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
+"call dein#add('Shougo/neosnippet-snippets')
+"call dein#add('Shougo/neosnippet.vim')
+"call dein#add('flazz/vim-colorschemes')
+"call dein#add('majutsushi/tagbar')
+"call dein#add('scrooloose/nerdtree')
+"call dein#add('tpope/vim-unimpaired')
+"call dein#add('wikitopian/hardmode')
+"call dein#add('xolox/vim-easytags')
+"call dein#add('xolox/vim-misc')
+call dein#add('Lokaltog/vim-easymotion')
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/vimshell')
+call dein#add('Valloric/YouCompleteMe')
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('fatih/vim-go')
+call dein#add('leafgarland/typescript-vim')
+call dein#add('nsf/gocode', {'rtp': 'vim/'})
+call dein#add('scrooloose/syntastic')
+call dein#add('terryma/vim-multiple-cursors')
+call dein#add('tikhomirov/vim-glsl')
+call dein#add('tpope/vim-fugitive')
+call dein#add('tpope/vim-sleuth')
+call dein#add('unblevable/quick-scope')
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add('Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ })
 
-" My Bundles here:
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-"NeoBundle 'ervandew/supertab'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'wikitopian/hardmode'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'tpope/vim-unimpaired'
-NeoBundle 'fatih/vim-go'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'xolox/vim-easytags'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'tikhomirov/vim-glsl'
 
 
-" Required:
-call neobundle#end()
+call dein#end()
 
 " Required:
 filetype plugin indent on
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
+if dein#check_install()
+  call dein#install()
+endif
 
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_go_checkers = ['go', 'govet', 'golint']
 let g:syntastic_go_golint_args='-min_confidence=0.3 -shadow_ignore="err"'
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
@@ -175,6 +171,18 @@ endif
 set enc=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf8,prc
+set breakindent
+
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+nnoremap <Down> gj
+nnoremap <Up> gk
+vnoremap <Down> gj
+vnoremap <Up> gk
+inoremap <Down> <C-o>gj
+inoremap <Up> <C-o>gk
 
 if !has('nvim')
     set clipboard=unnamedplus
@@ -193,19 +201,17 @@ au FileType go nmap <leader>bc :GoCoverage<cr>
 nmap <leader>sc :s#_*\(\u\)\(\u*\)#\1\L\2#g<cr>
 
 " The Silver Searcher
- if executable('ag')
-"   " Use ag over grep
-     set grepprg=ag\ --nogroup\ --nocolor
-"
-"       " Use ag in CtrlP for listing files. Lightning fast and respects
-"       .gitignore
-       let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-" ag is fast enough that CtrlP doesn't need to cache
-"   let g:ctrlp_use_caching = 0
- endif
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 " Who wants an 8 character tab?  Not me!
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
+set ttyfast
