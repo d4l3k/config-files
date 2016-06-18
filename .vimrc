@@ -13,7 +13,7 @@ set guioptions-=L "remove scrollbars
 set guioptions-=r "remove scrollbars
 set laststatus=2
 
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
+set guifont=Monaco\ for\ Powerline:h12
 
 
 " Necesary  for lots of cool vim things
@@ -33,6 +33,12 @@ if version >= 700
    set spell
 endif
 
+" Switch between panes easier
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 
 " Cool tab completion stuff
 set wildmenu
@@ -45,7 +51,7 @@ set mouse=a
 " Ignoring case is a fun trick
 set ignorecase
 
-" And so is Artificial Intellegence!
+" And so is Artificial Intelligence!
 set smartcase
 
 
@@ -71,7 +77,7 @@ set directory=~/.vim/tmp
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
-set colorcolumn=80
+set colorcolumn=80,100
 
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -87,7 +93,7 @@ let g:airline_powerline_fonts = 1
 " Updated tags in background
 let g:easytags_async = 1
 
-set runtimepath+=~/.vim/repos/github.com/Shougo/dein.vim/
+set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim/
 
 " Required:
 call dein#begin(expand('~/.vim/bundle'))
@@ -100,34 +106,38 @@ call dein#begin(expand('~/.vim/bundle'))
 "call dein#add('tpope/vim-unimpaired')
 "call dein#add('wikitopian/hardmode')
 "call dein#add('xolox/vim-easytags')
-"call dein#add('xolox/vim-misc')
+"call dein#add('xolox/vim-misc'
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimshell')
-call dein#add('Valloric/YouCompleteMe')
-call dein#add('altercation/vim-colors-solarized')
-call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('sourcegraph/sourcegraph-vim')
+if has('nvim')
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('zchee/deoplete-go', {'build': 'make'})
+  call dein#add('mhartington/deoplete-typescript')
+  call dein#add('frankier/neovim-colors-solarized-truecolor-only')
+  call dein#add('neomake/neomake')
+  call dein#add('sbdchd/neoformat')
+else
+  call dein#add('Shougo/neocomplete.vim')
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('mrtracy/syntastic', { 'rev': 'mtracy/tsc_tsproj' })
+endif
 call dein#add('fatih/vim-go')
+call dein#add('Shougo/vimshell')
+call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('leafgarland/typescript-vim')
+call dein#add('ianks/vim-tsx')
 call dein#add('nsf/gocode', {'rtp': 'vim/'})
-call dein#add('scrooloose/syntastic')
 call dein#add('terryma/vim-multiple-cursors')
 call dein#add('tikhomirov/vim-glsl')
 call dein#add('tpope/vim-fugitive')
 call dein#add('tpope/vim-sleuth')
-call dein#add('unblevable/quick-scope')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
-call dein#add('Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ })
-
+call dein#add('wavded/vim-stylus')
+call dein#add('rking/ag.vim')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('Quramy/tsuquyomi')
 
 
 call dein#end()
@@ -139,20 +149,76 @@ if dein#check_install()
   call dein#install()
 endif
 
+" <Leader>f{char} to move to {char}
+map  f <Plug>(easymotion-bd-f)
+nmap f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map L <Plug>(easymotion-bd-jk)
+nmap L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  w <Plug>(easymotion-bd-w)
+nmap w <Plug>(easymotion-overwin-w)
 
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_go_checkers = ['go', 'govet', 'golint']
+let g:syntastic_go_checkers = ['govet', 'golint', 'errcheck']
+let g:syntastic_go_govet_exec = 'go tool vet'
+let g:syntastic_go_govet_args = '-printfuncs=Errorf:1'
 let g:syntastic_go_golint_args='-min_confidence=0.3 -shadow_ignore="err"'
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
-let g:syntastic_typescript_tsc_post_args='--experimentalDecorators'
+let g:syntastic_typescript_tsx_checkers = ['typescript/tsx', 'typescript/tslint']
+let g:syntastic_typescript_tsc_post_args='--experimentalDecorators --jsx react'
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+
+if has('nvim')
+  " Use deoplete.
+  let g:deoplete#enable_at_startup = 1
+  " Use smartcase.
+  let g:deoplete#enable_smart_case = 1
+  " deoplete tab-complete
+  inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+
+  let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
+  let g:neoformat_enabled_typescript = ['clangformat']
+
+  autocmd! BufWritePost *.ts Neoformat
+  autocmd! BufWritePost * Neomake
+  set cb=unnamed
+  autocmd BufEnter,FocusGained * checktime
+
+  let g:neomake_typescript_tsc_args = ['--experimentalDecorators']
+  " set termguicolors
+else
+  " Use neocomplete.
+  let g:neocomplete#enable_at_startup = 1
+  " Use smartcase.
+  let g:neocomplete#enable_smart_case = 1
+  " Recommended key-mappings.
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? "\<C-y>" : "\<CR>"
+  endfunction
+  " <TAB>: completion.
+  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+  " <C-h>, <BS>: close popup and delete backword char.
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+endif
+
+let g:airline_detect_spell=0
 
 let g:go_fmt_command = "goimports"
 
 nmap <F8> :TagbarToggle<CR>
-
-nmap <space> zz
 
 au BufNewFile,BufRead *.ejs set filetype=html
 
@@ -161,14 +227,18 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so ~/.vimrc
 augroup END
 
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 colorscheme solarized
 
 if has("gui_macvim")
-  set transparency=15
+  "set transparency=15
 endif
 
-set enc=utf-8
+if !has('nvim')
+  set enc=utf-8
+endif
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf8,prc
 set breakindent
@@ -185,7 +255,8 @@ inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
 
 if !has('nvim')
-    set clipboard=unnamedplus
+    set clipboard=unnamed
+
 endif
 
 set ttimeoutlen=0
@@ -210,8 +281,13 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+let g:ag_working_path_mode="r"
+
+let g:SOURCEGRAPH_AUTO = "false"
+
 " Who wants an 8 character tab?  Not me!
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set ttyfast
+set tw=80
