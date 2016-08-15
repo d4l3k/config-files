@@ -93,10 +93,16 @@ let g:airline_powerline_fonts = 1
 " Updated tags in background
 let g:easytags_async = 1
 
-set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim/
-
 " Required:
-call dein#begin(expand('~/.vim/bundle'))
+if has('nvim')
+  let b:path = '~/.vim/bundle-nvim'
+  set runtimepath+=~/.vim/bundle-nvim/repos/github.com/Shougo/dein.vim/
+else
+  let b:path = '~/.vim/bundle'
+  set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim/
+end
+
+call dein#begin(expand(b:path))
 
 "call dein#add('Shougo/neosnippet-snippets')
 "call dein#add('Shougo/neosnippet.vim')
@@ -107,9 +113,13 @@ call dein#begin(expand('~/.vim/bundle'))
 "call dein#add('wikitopian/hardmode')
 "call dein#add('xolox/vim-easytags')
 "call dein#add('xolox/vim-misc'
+call dein#add('kchmck/vim-coffee-script')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
-call dein#add('sourcegraph/sourcegraph-vim')
+"call dein#add('sourcegraph/sourcegraph-vim')
+call dein#add('sourcegraph-beta/sourcegraph-vim-beta')
+call dein#add('rhysd/vim-clang-format')
 if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('zchee/deoplete-go', {'build': 'make'})
@@ -122,10 +132,10 @@ else
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('mrtracy/syntastic', { 'rev': 'mtracy/tsc_tsproj' })
 endif
+call dein#add('leafgarland/typescript-vim')
 call dein#add('fatih/vim-go')
 call dein#add('Shougo/vimshell')
 call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('leafgarland/typescript-vim')
 call dein#add('ianks/vim-tsx')
 call dein#add('nsf/gocode', {'rtp': 'vim/'})
 call dein#add('terryma/vim-multiple-cursors')
@@ -136,11 +146,11 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('wavded/vim-stylus')
 call dein#add('rking/ag.vim')
-call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-call dein#add('Quramy/tsuquyomi')
 
 
 call dein#end()
+
+let g:typescript_indent_disable = 1
 
 " Required:
 filetype plugin indent on
@@ -187,7 +197,6 @@ if has('nvim')
   let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
   let g:neoformat_enabled_typescript = ['clangformat']
 
-  autocmd! BufWritePost *.ts Neoformat
   autocmd! BufWritePost * Neomake
   set cb=unnamed
   autocmd BufEnter,FocusGained * checktime
@@ -214,9 +223,12 @@ else
   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 endif
 
+autocmd! BufWritePost *.ts ClangFormat
 let g:airline_detect_spell=0
 
 let g:go_fmt_command = "goimports"
+
+let g:SOURCEGRAPH_AUTO = "false"
 
 nmap <F8> :TagbarToggle<CR>
 
@@ -268,8 +280,11 @@ au FileType go nmap <leader>bt :GoTest<cr>
 au FileType go nmap <leader>br :GoRun<cr>
 au FileType go nmap <leader>bi :GoInstall<cr>
 au FileType go nmap <leader>bc :GoCoverage<cr>
+au FileType go nmap gc :GoReferrers<cr>
 
 nmap <leader>sc :s#_*\(\u\)\(\u*\)#\1\L\2#g<cr>
+nmap [l :lprev<cr>
+nmap ]l :lnext<cr>
 
 " The Silver Searcher
 if executable('ag')
@@ -282,8 +297,6 @@ if executable('ag')
 endif
 
 let g:ag_working_path_mode="r"
-
-let g:SOURCEGRAPH_AUTO = "false"
 
 " Who wants an 8 character tab?  Not me!
 set shiftwidth=2
