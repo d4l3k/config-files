@@ -117,8 +117,11 @@ call dein#add('kchmck/vim-coffee-script')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
+"call dein#add('godlygeek/tabular')
+"call dein#add('plasticboy/vim-markdown')
+"call dein#add('lervag/vimtex')
 "call dein#add('sourcegraph/sourcegraph-vim')
-call dein#add('sourcegraph-beta/sourcegraph-vim-beta')
+"call dein#add('sourcegraph-beta/sourcegraph-vim-beta')
 call dein#add('rhysd/vim-clang-format')
 if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
@@ -239,6 +242,9 @@ augroup myvimrc
     au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so ~/.vimrc
 augroup END
 
+augroup terminal
+  autocmd TermOpen * setlocal nospell
+augroup END
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
@@ -254,6 +260,12 @@ endif
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf8,prc
 set breakindent
+
+" vim-markdown configuration
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_folding_disabled = 1
 
 nnoremap j gj
 nnoremap k gk
@@ -304,3 +316,13 @@ set softtabstop=2
 set tabstop=2
 set ttyfast
 set tw=80
+
+" Terminal movement commands.
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
