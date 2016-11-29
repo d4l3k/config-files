@@ -117,6 +117,7 @@ call dein#add('kchmck/vim-coffee-script')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
+call dein#add('dhruvasagar/vim-table-mode')
 "call dein#add('godlygeek/tabular')
 "call dein#add('plasticboy/vim-markdown')
 "call dein#add('lervag/vimtex')
@@ -310,6 +311,8 @@ endif
 
 let g:ag_working_path_mode="r"
 
+let g:table_mode_corner="|"
+
 " Who wants an 8 character tab?  Not me!
 set shiftwidth=2
 set softtabstop=2
@@ -325,4 +328,12 @@ tnoremap <A-l> <C-\><C-n><C-w>l
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
