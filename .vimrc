@@ -5,6 +5,44 @@ set number
 set autoindent
 set relativenumber
 
+" Create backup dirs
+function! InitBackupDir()
+  let l:separator = '.'
+  let l:parent = $HOME . '/' . l:separator . 'vim/'
+  let l:backup = l:parent . 'backup/'
+  let l:tmp = l:parent . 'tmp/'
+  if exists('*mkdir')
+    if !isdirectory(l:parent)
+      call mkdir(l:parent)
+    endif
+    if !isdirectory(l:backup)
+      call mkdir(l:backup)
+    endif
+    if !isdirectory(l:tmp)
+      call mkdir(l:tmp)
+    endif
+  endif
+  let l:missing_dir = 0
+  if isdirectory(l:tmp)
+    execute 'set backupdir=' . escape(l:backup, ' ') . '/,.'
+  else
+    let l:missing_dir = 1
+  endif
+  if isdirectory(l:backup)
+    execute 'set directory=' . escape(l:tmp, ' ') . '/,.'
+  else
+    let l:missing_dir = 1
+  endif
+  if l:missing_dir
+    echo 'Warning: Unable to create backup directories:' l:backup 'and' l:tmp
+    echo 'Try: mkdir -p' l:backup
+    echo 'and: mkdir -p' l:tmp
+    set backupdir=.
+    set directory=.
+  endif
+endfunction
+call InitBackupDir()
+
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
@@ -16,7 +54,7 @@ set laststatus=2
 set guifont=Monaco\ for\ Powerline:h12
 
 
-" Necesary  for lots of cool vim things
+" Necessary  for lots of cool vim things
 set nocompatible
 
 " This shows what you are typing as a command.  I love this!
@@ -27,7 +65,7 @@ set expandtab
 set smarttab
 
 
-" Use english for spellchecking,
+" Use English for spell checking,
 if version >= 700
    set spl=en spell
    set spell
@@ -61,17 +99,15 @@ set incsearch
 " Highlight things that we find with the search
 set hlsearch
 
-" Since I use linux, I want this
+" Since I use Linux, I want this
 let g:clipbrdDefaultReg = '+'
 
 
-" Set off the other paren
+" Set off the other parent
 highlight MatchParen ctermbg=4
 
 " Set backup location
 set backup
-set backupdir=~/.vim/backup
-set directory=~/.vim/tmp
 
 " Make cursor wrap properly.
 inoremap <Down> <C-o>gj
@@ -206,7 +242,23 @@ if has('nvim')
   autocmd BufEnter,FocusGained * checktime
 
   let g:neomake_typescript_tsc_args = ['--experimentalDecorators']
-  " set termguicolors
+  set termguicolors
+  let g:terminal_color_0 = "#073642" " s:base02
+  let g:terminal_color_1 = "#dc322f" " s:red
+  let g:terminal_color_2 = "#719e07" " s:green
+  let g:terminal_color_3 = "#b58900" " s:yellow
+  let g:terminal_color_4 = "#268bd2" " s:blue
+  let g:terminal_color_5 = "#d33682" " s:magenta
+  let g:terminal_color_6 = "#2aa198" " s:cyan
+  let g:terminal_color_7 = "#eee8d5" " s:base2
+  let g:terminal_color_8 = "#002b36" " s:base03
+  let g:terminal_color_9 = "#cb4b16" " s:orange
+  let g:terminal_color_10 = "#586e75" " s:base01
+  let g:terminal_color_11 = "#657b83" " s:base00
+  let g:terminal_color_12 = "#839496" " s:base0
+  let g:terminal_color_13 = "#6c71c4" " s:violet
+  let g:terminal_color_14 = "#93a1a1" " s:base1
+  let g:terminal_color_15 = "#fdf6e3" " s:base3
 else
   " Use neocomplete.
   let g:neocomplete#enable_at_startup = 1
