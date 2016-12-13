@@ -1,0 +1,63 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+   colors = true
+   color_good = "#859900"
+   color_bad = "#dc322f"
+   color_degraded = "#cb4b16"
+   output_format = "i3bar"
+   interval = 1
+}
+
+order += "cpu_usage 0"
+order += "cpu_temperature 0"
+order += "load"
+order += "disk /"
+order += "wireless wlp1s0"
+order += "battery 0"
+order += "tztime local"
+
+wireless wlp1s0 {
+        format_up = "WiFi: %quality"
+        format_down = "W: down"
+}
+
+
+battery 0 {
+        format = "%status %percentage %remaining"
+        status_chr = "⚡ CHR"
+        status_bat = "🔋 BAT"
+        status_full = "☻ FULL"
+        low_threshold = 60
+        threshold_type = "time"
+}
+
+
+
+tztime local {
+        format = "%Y-%m-%d %H:%M:%S"
+}
+
+load {
+        format = "%1min"
+}
+
+
+disk "/" {
+        format = "⛁ %avail"
+}
+
+cpu_usage {
+        format = " ⌗ %usage "
+}
+
+cpu_temperature 0 {
+        format = " ⇣ %degrees°C "
+}
+
