@@ -153,7 +153,8 @@ call dein#add('kchmck/vim-coffee-script')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
-call dein#add('dhruvasagar/vim-table-mode')
+"call dein#add('dodie/vim-disapprove-deep-indentation')
+"call dein#add('dhruvasagar/vim-table-mode')
 "call dein#add('godlygeek/tabular')
 "call dein#add('plasticboy/vim-markdown')
 "call dein#add('lervag/vimtex')
@@ -186,6 +187,7 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('wavded/vim-stylus')
 call dein#add('rking/ag.vim')
+call dein#add('vim-pandoc/vim-pandoc-syntax')
 
 
 call dein#end()
@@ -390,3 +392,21 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+hi Normal guibg=NONE ctermbg=NONE
+
+" Pandoc markdown
+augroup pandoc_syntax
+  au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
+
+" Speed up syntax highlighting
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_chan_whitespace_error = 0
+set nocursorcolumn
+set nocursorline
+syntax sync minlines=256
+set synmaxcol=300
+set re=1

@@ -1,0 +1,2 @@
+cryptsetup open /dev/mmcblk1p1 sd
+mount /dev/mapper/sd /home/rice/sd

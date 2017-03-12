@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DATE=$(date --iso-8601)
+FILE="$DATE.md"
+
+touch $FILE
+nvim $FILE
+
