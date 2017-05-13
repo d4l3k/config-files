@@ -217,7 +217,9 @@ map  w <Plug>(easymotion-bd-w)
 nmap w <Plug>(easymotion-overwin-w)
 
 let g:syntastic_aggregate_errors = 1
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_html_checkers = ['standard']
+let g:syntastic_html_standard_args = '--plugin html'
 let g:syntastic_go_checkers = ['govet', 'golint', 'errcheck']
 let g:syntastic_go_govet_exec = 'go tool vet'
 let g:syntastic_go_govet_args = '-printfuncs=Errorf:1'
@@ -244,6 +246,18 @@ if has('nvim')
   autocmd BufEnter,FocusGained * checktime
 
   let g:neomake_typescript_tsc_args = ['--experimentalDecorators']
+  let g:neomake_html_standard_maker = {
+      \ 'args': ['--plugin','html'],
+      \ 'errorformat': '  %f:%l:%c: %m'
+      \ }
+  let g:neomake_javascript_standard_maker = {
+      \ 'args': [],
+      \ 'errorformat': '  %f:%l:%c: %m'
+      \ }
+  let g:neomake_html_enabled_makers = ['tidy', 'standard']
+  let g:neomake_javascript_enabled_makers = ['standard']
+  "let g:neomake_verbose = 3
+
   set termguicolors
   let g:terminal_color_0 = "#073642" " s:base02
   let g:terminal_color_1 = "#dc322f" " s:red

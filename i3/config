@@ -207,10 +207,11 @@ for_window [class="Display" instance="display"] floating enable
 
 exec nm-applet
 exec xfce4-power-manager
-exec /home/rice/go/bin/sct
+exec /usr/local/bin/sct
 exec /usr/lib/xfce4/xfconf/xfconfd
 exec /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec_always xmodmap -e 'keycode 133 = Escape'
 exec --no-startup-id xfsettingsd --sm-client-disable &
 exec_always xrdb -merge ~/.local/rofi/config
 exec_always feh --bg-scale ~/Developer/config-files/background.jpg
+exec xcompmgr
