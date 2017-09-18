@@ -72,10 +72,10 @@ if version >= 700
 endif
 
 " Switch between panes easier
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+nnoremap <nowait> <C-J> <C-W><C-J>
+nnoremap <nowait> <C-K> <C-W><C-K>
+nnoremap <nowait> <C-L> <C-W><C-L>
+nnoremap <nowait> <C-H> <C-W><C-H>
 
 
 " Cool tab completion stuff
@@ -108,10 +108,6 @@ highlight MatchParen ctermbg=4
 
 " Set backup location
 set backup
-
-" Make cursor wrap properly.
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
 
 set colorcolumn=80,100
 
@@ -236,7 +232,7 @@ if has('nvim')
   " Use smartcase.
   let g:deoplete#enable_smart_case = 1
   " deoplete tab-complete
-  inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+  inoremap <nowait><silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
 
   let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
   let g:neoformat_enabled_typescript = ['clangformat']
@@ -256,6 +252,7 @@ if has('nvim')
       \ }
   let g:neomake_html_enabled_makers = ['tidy', 'standard']
   let g:neomake_javascript_enabled_makers = ['standard']
+  let g:neomake_go_enabled_makers = ['go']
   "let g:neomake_verbose = 3
 
   set termguicolors
@@ -336,16 +333,18 @@ let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_folding_disabled = 1
 
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap <Down> gj
-nnoremap <Up> gk
-vnoremap <Down> gj
-vnoremap <Up> gk
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
+
+" Make cursor wrap properly.
+"nnoremap <nowait> j gj
+"nnoremap <nowait> k gk
+"vnoremap <nowait> j gj
+"vnoremap <nowait> k gk
+"nnoremap <nowait> <Down> gj
+"nnoremap <nowait> <Up> gk
+"vnoremap <nowait> <Down> gj
+"vnoremap <nowait> <Up> gk
+"inoremap <nowait> <Down> <C-o>gj
+"inoremap <nowait> <Up> <C-o>gk
 
 if !has('nvim')
     set clipboard=unnamed
@@ -367,8 +366,11 @@ nmap <leader>sc :s#_*\(\u\)\(\u*\)#\1\L\2#g<cr>
 nmap [l :lprev<cr>
 nmap ]l :lnext<cr>
 
-" The Silver Searcher
-if executable('ag')
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
@@ -389,23 +391,23 @@ set ttyfast
 set tw=80
 
 " Terminal movement commands.
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+tnoremap <nowait> <A-h> <C-\><C-n><C-w>h
+tnoremap <nowait> <A-j> <C-\><C-n><C-w>j
+tnoremap <nowait> <A-k> <C-\><C-n><C-w>k
+tnoremap <nowait> <A-l> <C-\><C-n><C-w>l
+nnoremap <nowait> <A-h> <C-w>h
+nnoremap <nowait> <A-j> <C-w>j
+nnoremap <nowait> <A-k> <C-w>k
+nnoremap <nowait> <A-l> <C-w>l
 
-tnoremap <C-h> <C-\><C-n><C-w>h
-tnoremap <C-j> <C-\><C-n><C-w>j
-tnoremap <C-k> <C-\><C-n><C-w>k
-tnoremap <C-l> <C-\><C-n><C-w>l
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+tnoremap <nowait> <C-h> <C-\><C-n><C-w>h
+tnoremap <nowait> <C-j> <C-\><C-n><C-w>j
+tnoremap <nowait> <C-k> <C-\><C-n><C-w>k
+tnoremap <nowait> <C-l> <C-\><C-n><C-w>l
+nnoremap <nowait> <C-h> <C-w>h
+nnoremap <nowait> <C-j> <C-w>j
+nnoremap <nowait> <C-k> <C-w>k
+nnoremap <nowait> <C-l> <C-w>l
 
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -424,3 +426,9 @@ set nocursorline
 syntax sync minlines=256
 set synmaxcol=300
 set re=1
+
+let @e = "oif err != nil {\nreturn err\n}\<Esc>k$b"
+let @w = "Iif \<Esc>A; err != nil {\nreturn err\n}\<Esc>k$b"
+
+" Indent wrapped lines 2 spaces more than parent.
+set breakindentopt=shift:2
