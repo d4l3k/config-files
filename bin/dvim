@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+
+PWD="$(pwd)"
+EDIT="$PWD/$1"
+DIR="$(git rev-parse --show-toplevel)"
+NAME="$(echo "$DIR" | sed 's!/!-!g')"
+FILE="/tmp/$NAME"
+
+cd $DIR
+dtach -A $FILE nvim $EDIT
