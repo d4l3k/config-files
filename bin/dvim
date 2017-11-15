@@ -9,4 +9,4 @@ NAME="$(echo "$DIR" | sed 's!/!-!g')"
 FILE="/tmp/$NAME"
 
 cd $DIR
-dtach -A $FILE nvim $EDIT
+dtach -A $FILE -r winch nvim $EDIT

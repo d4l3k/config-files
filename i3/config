@@ -42,7 +42,7 @@ bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+p exec yegonesh
-bindsym $mod+p exec rofi -show run -width 3840 -padding 480  -opacity 80
+bindsym $mod+p exec rofi -show run -width 1280 -padding 20  -opacity 80 -dpi 120
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -216,3 +216,4 @@ exec --no-startup-id xfsettingsd --sm-client-disable
 exec_always xrdb -merge ~/.local/rofi/config
 exec_always feh --bg-scale ~/Developer/config-files/background.jpg
 exec xcompmgr
+exec_always xset r rate 200 35

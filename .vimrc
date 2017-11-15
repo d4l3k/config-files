@@ -174,7 +174,7 @@ call dein#add('fatih/vim-go')
 call dein#add('Shougo/vimshell')
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('ianks/vim-tsx')
-call dein#add('nsf/gocode', {'rtp': 'vim/'})
+"call dein#add('nsf/gocode', {'rtp': 'vim/'})
 call dein#add('terryma/vim-multiple-cursors')
 call dein#add('tikhomirov/vim-glsl')
 "call dein#add('tpope/vim-fugitive')
@@ -252,7 +252,8 @@ if has('nvim')
       \ }
   let g:neomake_html_enabled_makers = ['tidy', 'standard']
   let g:neomake_javascript_enabled_makers = ['standard']
-  let g:neomake_go_enabled_makers = ['go']
+  let g:neomake_go_gometalinter_args = [] "'--disable-all', '--enable=errcheck', '--enable=megacheck']
+  "let g:neomake_go_enabled_makers = ['go']
   "let g:neomake_verbose = 3
 
   set termguicolors
@@ -432,3 +433,5 @@ let @w = "Iif \<Esc>A; err != nil {\nreturn err\n}\<Esc>k$b"
 
 " Indent wrapped lines 2 spaces more than parent.
 set breakindentopt=shift:2
+
+command! Rdr :redraw! | :set mouse= | :set mouse=a
