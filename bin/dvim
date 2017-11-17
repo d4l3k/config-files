@@ -6,7 +6,19 @@ PWD="$(pwd)"
 EDIT="$PWD/$1"
 DIR="$(git rev-parse --show-toplevel)"
 NAME="$(echo "$DIR" | sed 's!/!-!g')"
-FILE="/tmp/$NAME"
+FILE="/tmp/dvimsocket-$NAME"
+export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket-$NAME"
+
+redraw () {
+  sleep 2
+  nvr --remote-expr 'execute("Rdr")'
+}
+
+if [ -e "$FILE" ]
+then
+  redraw &
+fi
 
 cd $DIR
+
 dtach -A $FILE -r winch nvim $EDIT
