@@ -12,7 +12,8 @@
 
 set $transparent #00000000
 
-set $mod Mod1
+#set $mod Mod1
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -217,3 +218,4 @@ exec_always xrdb -merge ~/.local/rofi/config
 exec_always feh --bg-scale ~/Developer/config-files/background.jpg
 exec xcompmgr
 exec_always xset r rate 200 35
+exec_always numlockx

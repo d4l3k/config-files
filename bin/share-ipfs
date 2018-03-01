@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+ARG="$*"
+
+HASH="$(ipfs add -Qwr $ARG)"
+FILE="$HASH/$(echo "$ARG" | sed 's/ /%20/g')"
+echo "ipfs://$FILE"
+echo "https://gateway.ipfs.io/ipfs/$FILE"
+echo "https://fn.lc/ipfs/$FILE"
+
+ssh rice@raven.fn.lc "ipfs pin add $HASH"

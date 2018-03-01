@@ -159,6 +159,7 @@ call dein#add('Shougo/dein.vim')
 call dein#add('rhysd/vim-clang-format')
 if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
+  call dein#add('zchee/deoplete-jedi')
   call dein#add('zchee/deoplete-go', {'build': 'make'})
   call dein#add('mhartington/deoplete-typescript')
   call dein#add('frankier/neovim-colors-solarized-truecolor-only')
@@ -169,6 +170,7 @@ else
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('mrtracy/syntastic', { 'rev': 'mtracy/tsc_tsproj' })
 endif
+call dein#add('JuliaEditorSupport/julia-vim')
 call dein#add('leafgarland/typescript-vim')
 call dein#add('fatih/vim-go')
 call dein#add('Shougo/vimshell')
@@ -233,6 +235,7 @@ if has('nvim')
   let g:deoplete#enable_smart_case = 1
   " deoplete tab-complete
   inoremap <nowait><silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
+  call deoplete#custom#source('jedi', 'is_debug_enabled', 0)
 
   let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
   let g:neoformat_enabled_typescript = ['clangformat']
@@ -435,3 +438,5 @@ let @w = "Iif \<Esc>A; err != nil {\nreturn err\n}\<Esc>k$b"
 set breakindentopt=shift:2
 
 command! Rdr :redraw! | :set mouse= | :set mouse=a
+
+command! Http :tabe | :term http-server -c0 -g
