@@ -4,7 +4,12 @@ set -e
 
 ARG="$*"
 
-HASH="$(ipfs add -Qwr $ARG)"
+if [[ -z "${IPFS_PIN_FALSE}" ]]; then
+	HASH="$(ipfs add -Qwr $ARG)"
+else
+	echo "Not pinning..."
+	HASH="$(ipfs add -Qwr --pin=false $ARG)"
+fi
 FILE="$HASH/$(echo "$ARG" | sed 's/ /%20/g')"
 echo "ipfs://$FILE"
 echo "https://gateway.ipfs.io/ipfs/$FILE"
