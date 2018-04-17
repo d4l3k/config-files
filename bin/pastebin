@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd /tmp
+tmpfile=$(mktemp XXXXXX)
+
+cat > $tmpfile
+share $tmpfile
+
+rm $tmpfile
