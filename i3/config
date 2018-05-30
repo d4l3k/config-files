@@ -51,10 +51,10 @@ bindsym $mod+p exec rofi -show run -width 1280 -padding 20  -opacity 80 -dpi 120
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-#bindsym $mod+h focus left
-#bindsym $mod+j focus down
-#bindsym $mod+k focus up
-#bindsym $mod+l focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -81,63 +81,59 @@ bindsym $mod+g split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+#bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+a layout stacking
+bindsym $mod+s layout tabbed
+bindsym $mod+d layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+t floating toggle
+bindsym $mod+f floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+#bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+grave workspace 1:~
-bindsym $mod+1 workspace 2:1
-bindsym $mod+2 workspace 3:2
-bindsym $mod+3 workspace 4:3
-bindsym $mod+4 workspace 5:4
-bindsym $mod+5 workspace 6:5
-bindsym $mod+6 workspace 7:6
-bindsym $mod+7 workspace 8:7
-bindsym $mod+8 workspace 9:8
-bindsym $mod+9 workspace 10:9
-bindsym $mod+0 workspace 11:0
-bindsym $mod+minus workspace 12:-
-bindsym $mod+equal workspace 13:=
-bindsym $mod+BackSpace workspace 14:←
+bindsym $mod+q workspace 1:q
+bindsym $mod+w workspace 2:w
+bindsym $mod+e workspace 3:e
+bindsym $mod+r workspace 4:r
+bindsym $mod+t workspace 5:t
+bindsym $mod+y workspace 6:y
+bindsym $mod+u workspace 7:u
+bindsym $mod+i workspace 8:i
+bindsym $mod+o workspace 9:o
+#bindsym $mod+p workspace 10:p
+#bindsym $mod+0 workspace 11:
+#bindsym $mod+minus workspace 12:-
+#bindsym $mod+equal workspace 13:=
+#bindsym $mod+BackSpace workspace 14:←
 
 # move focused container to workspace
-bindsym $mod+Shift+grave move container to workspace 1:~
-bindsym $mod+Shift+1 move container to workspace 2:1
-bindsym $mod+Shift+2 move container to workspace 3:2
-bindsym $mod+Shift+3 move container to workspace 4:3
-bindsym $mod+Shift+4 move container to workspace 5:4
-bindsym $mod+Shift+5 move container to workspace 6:5
-bindsym $mod+Shift+6 move container to workspace 7:6
-bindsym $mod+Shift+7 move container to workspace 8:7
-bindsym $mod+Shift+8 move container to workspace 9:8
-bindsym $mod+Shift+9 move container to workspace 10:9
-bindsym $mod+Shift+0 move container to workspace 11:0
-bindsym $mod+Shift+minus move container to workspace 12:-
-bindsym $mod+Shift+equal move container to workspace 13:=
-bindsym $mod+Shift+BackSpace move container to workspace 14:←
+bindsym $mod+Shift+q move container to workspace 1:q
+bindsym $mod+Shift+w move container to workspace 2:w
+bindsym $mod+Shift+e move container to workspace 3:e
+bindsym $mod+Shift+r move container to workspace 4:r
+bindsym $mod+Shift+t move container to workspace 5:t
+bindsym $mod+Shift+y move container to workspace 6:y
+bindsym $mod+Shift+u move container to workspace 7:u
+bindsym $mod+Shift+i move container to workspace 8:i
+bindsym $mod+Shift+o move container to workspace 9:o
+#bindsym $mod+Shift+p move container to workspace 10:p
+#bindsym $mod+Shift+0 move container to workspace 11:0
+#bindsym $mod+Shift+minus move container to workspace 12:-
+#bindsym $mod+Shift+equal move container to workspace 13:=
+#bindsym $mod+Shift+BackSpace move container to workspace 14:←
 
-# reload the configuration file
-bindsym $mod+Shift+t reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+f restart
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -163,7 +159,7 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+#bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

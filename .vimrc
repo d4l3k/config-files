@@ -165,14 +165,15 @@ if has('nvim')
   call dein#add('frankier/neovim-colors-solarized-truecolor-only')
   call dein#add('neomake/neomake')
   call dein#add('sbdchd/neoformat')
+  "call dein#add('zchee/nvim-go', {'build': 'make'})
 else
   call dein#add('Shougo/neocomplete.vim')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('mrtracy/syntastic', { 'rev': 'mtracy/tsc_tsproj' })
 endif
+call dein#add('fatih/vim-go')
 call dein#add('JuliaEditorSupport/julia-vim')
 call dein#add('leafgarland/typescript-vim')
-call dein#add('fatih/vim-go')
 call dein#add('Shougo/vimshell')
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('ianks/vim-tsx')
@@ -234,6 +235,9 @@ if has('nvim')
   " Use smartcase.
   let g:deoplete#enable_smart_case = 1
   " deoplete tab-complete
+  set completeopt+=noinsert
+  " deoplete.nvim recommend
+  set completeopt+=noselect
   inoremap <nowait><silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
   call deoplete#custom#source('jedi', 'is_debug_enabled', 0)
 
@@ -425,6 +429,18 @@ let g:go_highlight_space_tab_error = 0
 let g:go_highlight_array_whitespace_error = 0
 let g:go_highlight_trailing_whitespace_error = 0
 let g:go_highlight_chan_whitespace_error = 0
+
+" other highlighting
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+
 set nocursorcolumn
 set nocursorline
 syntax sync minlines=256
@@ -442,20 +458,10 @@ command! Rdr :redraw! | :set mouse= | :set mouse=a
 command! Http :tabe | :term http-server -c0 -g
 
 " Disable Deoplete when selecting multiple cursors starts
+" Disable deoplete when in multi cursor mode
 function! Multiple_cursors_before()
-    if exists('*deoplete#disable')
-        exe 'call deoplete#disable()'
-    elseif exists(':NeoCompleteLock') == 2
-        exe 'NeoCompleteLock'
-    endif
+    let b:deoplete_disable_auto_complete = 1
 endfunction
-
-" Enable Deoplete when selecting multiple cursors ends
 function! Multiple_cursors_after()
-    if exists('*deoplete#enable')
-        exe 'call deoplete#enable()'
-    elseif exists(':NeoCompleteUnlock') == 2
-        exe 'NeoCompleteUnlock'
-    endif
+    let b:deoplete_disable_auto_complete = 0
 endfunction
-
