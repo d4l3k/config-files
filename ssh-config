@@ -1,0 +1,13 @@
+Host ariel.fn.lc
+  LocalForward 8080 localhost:8080
+  LocalForward 0.0.0.0:8081 localhost:8081
+  LocalForward 8082 localhost:8082
+  LocalForward 8181 localhost:8181
+  LocalForward 8282 localhost:8282
+  LocalForward 5000 localhost:5000
+  LocalForward 0.0.0.0:19000 localhost:19000
+  LocalForward 0.0.0.0:19001 localhost:19001
+#  RemoteForward 5037 localhost:5037
+  Compression yes
+  ForwardX11 yes
+  ForwardX11Trusted yes
