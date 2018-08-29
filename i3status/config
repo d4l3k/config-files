@@ -23,7 +23,7 @@ order += "wireless wlp1s0"
 order += "battery 0"
 order += "tztime local"
 
-wireless wlp1s0 {
+wireless wlp60s0 {
         format_up = "WiFi: %quality"
         format_down = "W: down"
 }

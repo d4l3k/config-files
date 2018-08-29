@@ -145,11 +145,13 @@ call dein#begin(expand(b:path))
 "call dein#add('wikitopian/hardmode')
 "call dein#add('xolox/vim-easytags')
 "call dein#add('xolox/vim-misc'
-call dein#add('kchmck/vim-coffee-script')
+"call dein#add('kchmck/vim-coffee-script')
 call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
 call dein#add('git-time-metric/gtm-vim-plugin')
+"call dein#add('gf3/peg.vim')
+call dein#add('jasontbradshaw/pigeon.vim')
 "call dein#add('dodie/vim-disapprove-deep-indentation')
 "call dein#add('dhruvasagar/vim-table-mode')
 "call dein#add('godlygeek/tabular')
@@ -162,22 +164,25 @@ if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('zchee/deoplete-jedi')
   call dein#add('zchee/deoplete-go', {'build': 'make'})
-  call dein#add('mhartington/deoplete-typescript')
+  "call dein#add('mhartington/deoplete-typescript')
+  "call dein#add('HerringtonDarkholme/yats.vim')
   call dein#add('frankier/neovim-colors-solarized-truecolor-only')
   call dein#add('neomake/neomake')
   call dein#add('sbdchd/neoformat')
+  call dein#add('mhartington/nvim-typescript', {'build': './install.sh'})
   "call dein#add('zchee/nvim-go', {'build': 'make'})
 else
   call dein#add('Shougo/neocomplete.vim')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('mrtracy/syntastic', { 'rev': 'mtracy/tsc_tsproj' })
+  call dein#add('leafgarland/typescript-vim')
 endif
+call dein#add('leafgarland/typescript-vim')
 call dein#add('fatih/vim-go')
 call dein#add('JuliaEditorSupport/julia-vim')
-call dein#add('leafgarland/typescript-vim')
 call dein#add('Shougo/vimshell')
 call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('ianks/vim-tsx')
+"call dein#add('ianks/vim-tsx')
 "call dein#add('nsf/gocode', {'rtp': 'vim/'})
 call dein#add('terryma/vim-multiple-cursors')
 call dein#add('tikhomirov/vim-glsl')
@@ -242,8 +247,8 @@ if has('nvim')
   inoremap <nowait><silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
   call deoplete#custom#source('jedi', 'is_debug_enabled', 0)
 
-  let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
-  let g:neoformat_enabled_typescript = ['clangformat']
+  "let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
+  "let g:neoformat_enabled_typescript = ['clangformat']
 
   autocmd! BufWritePost * Neomake
   set cb=unnamed
@@ -301,7 +306,7 @@ else
   inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 endif
 
-autocmd! BufWritePost *.ts ClangFormat
+"autocmd! BufWritePost *.ts ClangFormat
 let g:airline_detect_spell=0
 
 let g:go_fmt_command = "goimports"
