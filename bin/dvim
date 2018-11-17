@@ -4,7 +4,7 @@ set -e
 
 PWD="$(pwd)"
 EDIT="$PWD/$1"
-DIR="$(git rev-parse --show-toplevel)"
+DIR="$(git rev-parse --show-toplevel || hg root)"
 NAME="$(echo "$DIR" | sed 's!/!-!g')"
 FILE="/tmp/dvimsocket-$NAME"
 export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket-$NAME"
