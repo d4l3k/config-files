@@ -150,6 +150,7 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
 call dein#add('git-time-metric/gtm-vim-plugin')
+call dein#add('Quramy/vim-js-pretty-template')
 "call dein#add('gf3/peg.vim')
 call dein#add('jasontbradshaw/pigeon.vim')
 "call dein#add('dodie/vim-disapprove-deep-indentation')
@@ -175,7 +176,6 @@ else
   call dein#add('Shougo/neocomplete.vim')
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('mrtracy/syntastic', { 'rev': 'mtracy/tsc_tsproj' })
-  call dein#add('leafgarland/typescript-vim')
 endif
 call dein#add('leafgarland/typescript-vim')
 call dein#add('fatih/vim-go')
@@ -197,7 +197,8 @@ call dein#add('vim-pandoc/vim-pandoc-syntax')
 
 call dein#end()
 
-let g:typescript_indent_disable = 1
+"let g:typescript_indent_disable = 1
+autocmd FileType typescript syn clear foldBraces
 
 " Required:
 filetype plugin indent on
