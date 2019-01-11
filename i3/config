@@ -46,7 +46,8 @@ bindsym $mod+Shift+c kill
 bindsym $mod+p exec rofi -show run -width 1280 -padding 20  -opacity 80 -dpi 150
 
 # toggle laptop keyboard
-bindsym $mod+z exec /home/rice/Developer/config-files/bin/toggle-keyboard
+bindsym $mod+z exec toggle-keyboard
+bindsym $mod+x exec fix-monitors
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -232,5 +233,5 @@ exec_always feh --bg-scale ~/Developer/config-files/background.jpg
 exec compton
 exec_always xset r rate 200 35
 exec_always numlockx
-exec /home/rice/go/bin/sct
-exec gnome-keyring-daemon
+exec sct
+exec_always gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
