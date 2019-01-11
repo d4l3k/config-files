@@ -1,0 +1,5 @@
+#!/bin/sh
+
+xrandr --auto --output eDP1 --mode 1920x1080 --pos 0x1480 \
+  --output DP1 --primary --mode 2560x1600 --pos 1920x0 --rotate left \
+  --output HDMI2 --mode 2560x1600 --right-of DP1 --rotate left
