@@ -230,7 +230,7 @@ exec_always xmodmap -e "keysym Caps_Lock = Escape"
 exec --no-startup-id xfsettingsd --sm-client-disable
 exec_always xrdb -merge ~/.local/rofi/config
 exec_always feh --bg-scale ~/Developer/config-files/background.jpg
-exec compton
+#exec compton
 exec_always xset r rate 200 35
 exec_always numlockx
 exec sct
