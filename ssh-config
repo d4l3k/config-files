@@ -11,3 +11,9 @@ Host ariel.fn.lc
   Compression yes
   ForwardX11 yes
   ForwardX11Trusted yes
+
+Host localhost
+  Compression yes
+
+Host 192.168.90.*
+    StrictHostKeyChecking no

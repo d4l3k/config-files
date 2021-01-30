@@ -164,7 +164,7 @@ call dein#add('rhysd/vim-clang-format')
 if has('nvim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('zchee/deoplete-jedi')
-  call dein#add('zchee/deoplete-go', {'build': 'make'})
+  "call dein#add('zchee/deoplete-go', {'build': 'make'})
   "call dein#add('mhartington/deoplete-typescript')
   "call dein#add('HerringtonDarkholme/yats.vim')
   call dein#add('frankier/neovim-colors-solarized-truecolor-only')
@@ -193,6 +193,7 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('wavded/vim-stylus')
 call dein#add('rking/ag.vim')
 call dein#add('vim-pandoc/vim-pandoc-syntax')
+call dein#add('kelwin/vim-smali')
 
 
 call dein#end()
@@ -246,7 +247,7 @@ if has('nvim')
   " deoplete.nvim recommend
   set completeopt+=noselect
   inoremap <nowait><silent><expr> <Tab> pumvisible() ? "\<C-n>" : deoplete#mappings#manual_complete()
-  call deoplete#custom#source('jedi', 'is_debug_enabled', 0)
+  "call deoplete#custom#source('jedi', 'is_debug_enabled', 0)
 
   "let g:neoformat_typescript_clangformat = {'exe': 'clang-format', 'args':  ['-fallback-style=Google']} " neoformat#formatters#c#clangformat()
   "let g:neoformat_enabled_typescript = ['clangformat']
@@ -255,6 +256,7 @@ if has('nvim')
   set cb=unnamed
   autocmd BufEnter,FocusGained * checktime
 
+  let g:neomake_open_list = 2
   let g:neomake_typescript_tsc_args = ['--experimentalDecorators']
   let g:neomake_html_standard_maker = {
       \ 'args': ['--plugin','html'],
@@ -472,5 +474,7 @@ endfunction
 function! Multiple_cursors_after()
     let b:deoplete_disable_auto_complete = 0
 endfunction
+
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 set autochdir
