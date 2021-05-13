@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex
+
+rclone copy -P gphotos:/media/by-day/ backblazesecret:/photos/media/by-day/
