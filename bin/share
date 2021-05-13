@@ -3,6 +3,33 @@
 
 ARG="$*"
 
-scp -r "$ARG" rice@raven.fn.lc:/srv/http/fn.lc-static
-ssh rice@raven.fn.lc "chmod -R 755 '/srv/http/fn.lc-static/$ARG'"
-echo "https://fn.lc/s/$(echo "$ARG" | sed 's/ /%20/g')"
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    --insecure)
+    echo "insecure mode"
+    INSECURE="1"
+    shift # past value
+    ;;
+    *)    # unknown option
+    POSITIONAL+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+DIR=/srv/http/fn.lc-static/
+
+if [ -z "$INSECURE" ]
+then
+  PREFIX="$(openssl rand -hex 12)/"
+  DIR="$DIR$PREFIX"
+fi
+
+rsync -rav "$ARG" "rice@raven.fn.lc:$DIR"
+ssh rice@raven.fn.lc "chmod -R 755 '$DIR'"
+echo "https://fn.lc/s/$PREFIX$(basename "$ARG" | sed 's/ /%20/g')"
