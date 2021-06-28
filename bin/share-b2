@@ -4,7 +4,7 @@ set -x
 
 BUCKET=d4l3k-7d
 FILE="$(openssl rand -hex 12)"
-KEY="$(openssl rand -hex 16)"
+KEY="$(openssl rand -hex 32)"
 
 SSL_CMD="openssl aes-256-cbc -md sha512 -pbkdf2 -iter 100000 -k $KEY"
 pv -W "$1" | $SSL_CMD -salt -in - -out - | rclone rcat "$BUCKET:$BUCKET/$FILE"
