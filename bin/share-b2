@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 BUCKET=d4l3k-7d
 FILE="$(openssl rand -hex 12)"
 KEY="$(openssl rand -hex 16)"
@@ -9,6 +11,6 @@ pv -W "$1" | $SSL_CMD -salt -in - -out - | rclone rcat "$BUCKET:$BUCKET/$FILE"
 
 URL="https://f001.backblazeb2.com/file/$BUCKET/$FILE"
 
-DOWNLOAD="curl $URL | $SSL_CMD -d -in - -out - > $1"
+DOWNLOAD="curl $URL | $SSL_CMD -d -in - -out - > $(basename $1)"
 echo $DOWNLOAD | xclip
 echo $DOWNLOAD

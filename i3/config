@@ -153,7 +153,11 @@ bindsym $mod+Shift+o move container to workspace 9:o
 #bindsym $mod+Shift+BackSpace move container to workspace 14:←
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+f restart
+bindsym $mod+Shift+f reload
+
+
+bindsym XF86MonBrightnessUp exec intelbacklight -inc 800
+bindsym XF86MonBrightnessDown exec intelbacklight -dec 800
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -184,7 +188,7 @@ mode "resize" {
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        i3bar_command i3bar
+        #i3bar_command i3bar
 
 
         height 20
@@ -202,6 +206,13 @@ bar {
 	      urgent_workspace   #dc322f #dc322f #fdf6e3
         }
 	strip_workspace_numbers yes
+}
+
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+    accel_profile adaptive
+    pointer_accel 0.3
 }
 
 # gaps inner 0
@@ -224,6 +235,14 @@ client.urgent           #002b36 #dc322f #fdf6e3 #002b36
 
 for_window [class="Display" instance="display"] floating enable
 
+output eDP-1 scale 1.5
+input 1:1:AT_Translated_Set_2_keyboard repeat_delay 200
+input 1:1:AT_Translated_Set_2_keyboard repeat_rate 35
+
+output "*" bg ~/Developer/config-files/background.jpg fill
+default_border pixel 1
+
+exec_always swayidle -w before-sleep 'swaylock -c 000000'
 exec nm-applet
 exec xfce4-power-manager
 exec /usr/lib/xfce4/xfconf/xfconfd
@@ -232,9 +251,7 @@ exec_always xmodmap -e "clear lock"
 exec_always xmodmap -e "keysym Caps_Lock = Escape"
 exec --no-startup-id xfsettingsd --sm-client-disable
 exec_always xrdb -merge ~/.local/rofi/config
-exec_always feh --bg-scale ~/Developer/config-files/background.jpg
 #exec compton
-exec_always xset r rate 200 35
 exec_always numlockx
 exec sct
 exec_always gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
