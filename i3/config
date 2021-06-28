@@ -43,7 +43,8 @@ bindsym $mod+Shift+c kill
 
 # start dmenu (a program launcher)
 #bindsym $mod+p exec yegonesh
-bindsym $mod+p exec rofi -show run -width 1280 -padding 20  -opacity 80 -dpi 150
+bindsym $mod+p exec rofi -show run -width 960 -padding 20  -opacity 80 -dpi 130
+#bindsym $mod+p exec wofi --show run
 
 # toggle laptop keyboard
 bindsym $mod+z exec toggle-keyboard
@@ -246,7 +247,7 @@ exec_always swayidle -w before-sleep 'swaylock -c 000000'
 exec nm-applet
 exec xfce4-power-manager
 exec /usr/lib/xfce4/xfconf/xfconfd
-exec /usr/lib/xfce4/notifyd/xfce4-notifyd
+exec mako
 exec_always xmodmap -e "clear lock"
 exec_always xmodmap -e "keysym Caps_Lock = Escape"
 exec --no-startup-id xfsettingsd --sm-client-disable
