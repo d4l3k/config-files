@@ -1,7 +1,6 @@
 #!/bin/sh
 
 
-ARG="$*"
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -29,6 +28,8 @@ then
   PREFIX="$(openssl rand -hex 12)/"
   DIR="$DIR$PREFIX"
 fi
+
+ARG="$*"
 
 rsync -rav "$ARG" "rice@raven.fn.lc:$DIR"
 ssh rice@raven.fn.lc "chmod -R 755 '$DIR'"

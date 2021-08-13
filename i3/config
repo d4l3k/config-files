@@ -215,6 +215,10 @@ client.focused_inactive #002b36 #002b36 #839496 #073642
 client.unfocused        #002b36 #002b36 #839496 #073642
 client.urgent           #002b36 #dc322f #fdf6e3 #002b36
 
+# x11
+bindsym F2 exec xdotool keydown F2
+bindsym --release F2 exec xdotool keyup F2
+
 
 # solarized dark default
 # client.focused          #002b36 #586e75 #fdf6e3 #268bd2
@@ -236,5 +240,5 @@ exec_always feh --bg-scale ~/Developer/config-files/background.jpg
 #exec compton
 exec_always xset r rate 200 35
 exec_always numlockx
-exec sct
+exec waysct
 exec_always gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
