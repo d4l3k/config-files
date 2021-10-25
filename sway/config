@@ -236,7 +236,7 @@ client.urgent           #002b36 #dc322f #fdf6e3 #002b36
 
 for_window [class="Display" instance="display"] floating enable
 
-output eDP-1 scale 1
+output eDP-1 scale 1.2
 input "type:keyboard" {
     repeat_delay 200
     repeat_rate 35
@@ -262,3 +262,6 @@ exec_always xrdb -merge ~/.local/rofi/config
 exec_always numlockx
 exec sct
 exec_always gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_SESSION_TYPE=wayland

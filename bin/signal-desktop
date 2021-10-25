@@ -1,3 +1,9 @@
 #!/bin/bash
 
-GDK_BACKEND=wayland /usr/bin/signal-desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland $*
+set -ex
+
+if [ "$XDG_CURRENT_DESKTOP" == "i3" ]; then
+  /usr/bin/signal-desktop $*
+else
+  GDK_BACKEND=wayland /usr/bin/signal-desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland $*
+fi
