@@ -150,7 +150,7 @@ call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 call dein#add('Lokaltog/vim-easymotion')
 call dein#add('Shougo/dein.vim')
 "call dein#add('git-time-metric/gtm-vim-plugin')
-call dein#add('Quramy/vim-js-pretty-template')
+"call dein#add('Quramy/vim-js-pretty-template')
 "call dein#add('gf3/peg.vim')
 call dein#add('jasontbradshaw/pigeon.vim')
 "call dein#add('dodie/vim-disapprove-deep-indentation')
@@ -162,8 +162,8 @@ call dein#add('plasticboy/vim-markdown')
 "call dein#add('sourcegraph-beta/sourcegraph-vim-beta')
 call dein#add('rhysd/vim-clang-format')
 if has('nvim')
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('zchee/deoplete-jedi')
+  "call dein#add('Shougo/deoplete.nvim')
+  "call dein#add('zchee/deoplete-jedi')
   "call dein#add('zchee/deoplete-go', {'build': 'make'})
   "call dein#add('mhartington/deoplete-typescript')
   "call dein#add('HerringtonDarkholme/yats.vim')
@@ -231,6 +231,7 @@ let g:syntastic_go_checkers = ['govet', 'golint', 'errcheck']
 let g:syntastic_go_govet_exec = 'go tool vet'
 let g:syntastic_go_govet_args = '-printfuncs=Errorf:1'
 let g:syntastic_go_golint_args='-min_confidence=0.3 -shadow_ignore="err"'
+let g:syntastic_python_checkers=[]
 let g:syntastic_python_flake8_post_args='--ignore=E221,E111'
 let g:syntastic_typescript_tsx_checkers = ['typescript/tsx', 'typescript/tslint']
 let g:syntastic_typescript_tsc_post_args='--experimentalDecorators --jsx react'
@@ -268,6 +269,7 @@ if has('nvim')
       \ }
   let g:neomake_html_enabled_makers = ['tidy', 'standard']
   let g:neomake_javascript_enabled_makers = ['standard']
+  let g:neomake_python_enabled_makers = [] "black']
   let g:neomake_go_gometalinter_args = [] "'--disable-all', '--enable=errcheck', '--enable=megacheck']
   "let g:neomake_go_enabled_makers = ['go']
   "let g:neomake_verbose = 3
@@ -478,3 +480,11 @@ endfunction
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 set autochdir
+
+function! FixWinch()
+  sleep 1
+  set mouse=n
+  set mouse=a
+endfunction
+
+autocmd Signal SIGWINCH call FixWinch()
