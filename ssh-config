@@ -5,15 +5,67 @@ Host ariel.fn.lc
   LocalForward 8181 localhost:8181
   LocalForward 8282 localhost:8282
   LocalForward 5000 localhost:5000
+  LocalForward 8888 localhost:8888
+  LocalForward 8889 localhost:8889
+  LocalForward 6006 localhost:6006
+  LocalForward 6007 localhost:6007
+  LocalForward 6008 localhost:6008
+  LocalForward 7860 localhost:7860
+  LocalForward 7861 localhost:7861
   LocalForward 0.0.0.0:19000 localhost:19000
   LocalForward 0.0.0.0:19001 localhost:19001
+  Port 2022
 #  RemoteForward 5037 localhost:5037
   Compression yes
   ForwardX11 yes
   ForwardX11Trusted yes
+
+Host ariel.tail1a817.ts.net
+  HostName 100.106.123.60
+  Compression yes
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  LocalForward 8188 localhost:8188
 
 Host localhost
   Compression yes
 
 Host 192.168.90.*
     StrictHostKeyChecking no
+
+Host ariel.raven
+  HostName 10.42.1.2
+  ProxyJump raven.fn.lc
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  LocalForward 6006 localhost:6006
+  LocalForward 8080 localhost:8080
+
+Host saturday.raven
+  HostName localhost
+  User root
+  Port 2024
+  LocalForward 8081 localhost:8081
+  ProxyJump raven.fn.lc
+
+Host turboa.saturday.raven
+  HostName 192.168.90.103
+  User root
+  Port 222
+  ProxyJump raven.fn.lc,root@localhost:2024
+
+Host turbob.saturday.raven
+  HostName 192.168.90.105
+  User root
+  Port 222
+  ProxyJump raven.fn.lc,root@localhost:2024
+
+Host 192.168.90.100
+  User root
+  LocalForward 8081 localhost:8081
+
+Host 192.168.90.103
+  User root
+
+Host 192.168.90.105
+  User root
